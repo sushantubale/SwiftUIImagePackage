@@ -51,9 +51,11 @@ public struct MoviewView: View {
     }
     
     public var body: some View {
-        VStack {
-            Text(verbatim: title!)
+        VStack(spacing: 10, content: {
             Image(uiImage: image!)
-        }
+                .resizable()
+            Text(verbatim: title!)
+                .bold()
+        })
     }
 }
