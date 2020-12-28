@@ -13,12 +13,14 @@ import SwiftUI
 public struct ImageFetcherView<PlaceholderView: View>: View {
     @StateObject private var loader: ImageFetcher
     public let placeholder: PlaceholderView
-    public let image: (UIImage) -> Image
+    public let moviewView: (MoviewView) -> MoviewView
+    public var title: String = ""
     
     @available(iOS 14.0, *)
-    public init(url: URL, @ViewBuilder placeholder: () -> PlaceholderView, @ViewBuilder image: @escaping (UIImage) -> Image = Image.init(uiImage:)) {
+    public init(url: URL, @ViewBuilder placeholder: () -> PlaceholderView, @ViewBuilder moviewView: @escaping (MoviewView) -> MoviewView, title: String) {
         self.placeholder = placeholder()
-        self.image = image
+        self.moviewView = moviewView
+        self.title = title
         _loader = StateObject(wrappedValue: ImageFetcher(url: url, cache: Environment(\.imageCache).wrappedValue))
     }
     
@@ -30,7 +32,7 @@ public struct ImageFetcherView<PlaceholderView: View>: View {
     public var content: some View {
         Group {
             if loader.image != nil {
-                image(loader.image!)
+                MoviewView(image: loader.image!, title: title)
             } else {
                 placeholder
             }
@@ -38,3 +40,20 @@ public struct ImageFetcherView<PlaceholderView: View>: View {
     }
 }
 
+@available(iOS 13.0, *)
+public struct MoviewView: View {
+    public  let image: UIImage?
+    public let title: String?
+    
+    public init(image: UIImage, title: String) {
+        self.image = image
+        self.title = title
+    }
+    
+    public var body: some View {
+        VStack {
+            Text(verbatim: title!)
+            Image(uiImage: image!)
+        }
+    }
+}
