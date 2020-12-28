@@ -14,9 +14,15 @@ public enum SessionError: Error {
 
 @available(iOS 13.0, *)
 public class DataDecoder {
-    public func dataTaskPublisher<T: Decodable>(_ url: URL) -> AnyPublisher<T, Error> {
+    public var url: URL?
+    
+    public init(url: URL) {
+        self.url = url
+    }
+    
+    public func dataTaskPublisher<T: Decodable>() -> AnyPublisher<T, Error> {
         
-        return URLSession.shared.dataTaskPublisher(for: url)
+        return URLSession.shared.dataTaskPublisher(for: self.url!)
             .tryMap( { (data, response) -> Data in
                 if let response = response as? HTTPURLResponse, (200..<300).contains(response.statusCode) == false {
                     throw SessionError.statusCode(response)
