@@ -17,7 +17,7 @@ import Combine
 class ImageFetcher: ObservableObject {
     
     @Published var image: UIImage?
-    private(set) var isLoadingImage = false
+    var isLoadingImage = false
     private let url: URL
     private var imageFetcherCache: ImageFetcherCacheProtocol?
     private var cancellable: AnyCancellable?
@@ -59,12 +59,12 @@ class ImageFetcher: ObservableObject {
     }
     
     /// startDownloading is used to show that the loading of a particular task or image has started.
-    private func startDownloading() {
+    func startDownloading() {
         isLoadingImage = true
     }
     
     /// finishDownloading is used to show that the loading of a particular task or image has finished.
-    private func finishDownloading() {
+    func finishDownloading() {
         isLoadingImage = false
     }
     

@@ -11,7 +11,7 @@ import Combine
 //MARK: -  SessionError
 /// Session error 
 public enum SessionError: Error {
-    case statusCode(HTTPURLResponse)
+    case statusCode(URLResponse)
 }
 
 //MARK: - DataDecoder
@@ -24,19 +24,25 @@ public class DataDecoder {
         self.url = url
     }
     
-    
     /// This function calls the API to fetch data from remote server
     /// - Returns: Returns the decoded data done by using JSONDecoder().decode()
     public func dataTaskPublisher<T: Decodable>() -> AnyPublisher<T, Error> {
         
         return URLSession.shared.dataTaskPublisher(for: self.url!)
             .tryMap( { (data, response) -> Data in
-                if let response = response as? HTTPURLResponse, (200..<300).contains(response.statusCode) == false {
+                if self.getResponse(response) {
                     throw SessionError.statusCode(response)
                 }
                 return data
             })
             .decode(type: T.self, decoder: JSONDecoder())
             .eraseToAnyPublisher()
+    }
+    
+    func getResponse(_ response: URLResponse?) -> Bool {
+        if let response = response as? HTTPURLResponse, (200..<300).contains(response.statusCode) == false {
+            return true
+        }
+        return false
     }
 }
