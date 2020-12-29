@@ -52,10 +52,13 @@ public struct MoviewView: View {
     
     public var body: some View {
         VStack(spacing: 10, content: {
-            Image(uiImage: image!)
-                .resizable()
-            Text(verbatim: title!)
-                .bold()
+            if let image = image, let title = title {
+                Image(uiImage: image)
+                    .resizable()
+                    .padding()
+                Text(verbatim: title)
+                    .bold()
+            }
         })
     }
 }
