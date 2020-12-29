@@ -60,12 +60,15 @@ public struct MoviewView: View {
     
     public var body: some View {
         VStack(spacing: 10, content: {
-            if let image = image, let title = title {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                Text(verbatim: title)
-                    .bold()
+            GeometryReader { geo in
+                if let image = image, let title = title {
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: geo.size.width, height: 300)
+                    Text(verbatim: title)
+                        .bold()
+                }
             }
         })
     }
