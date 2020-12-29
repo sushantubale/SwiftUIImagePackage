@@ -63,6 +63,7 @@ public struct MoviewView: View {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
+                    .frame(width: 120, height: 120, alignment: .center)
                     .clipShape(Circle())
                 Text(verbatim: title)
                     .bold()
