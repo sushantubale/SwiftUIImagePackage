@@ -63,7 +63,7 @@ public struct MoviewView: View {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
-                    .overlay(ImageOverlay(), alignment: .bottomTrailing)
+                    .overlay(ImageOverlay(title: title), alignment: .bottomTrailing)
                 Spacer()
 
             }
