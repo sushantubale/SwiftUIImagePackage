@@ -65,9 +65,9 @@ public struct MoviewView: View {
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 250.0, height: 250.0, alignment: .center)
                     .clipShape(Circle())
+                Spacer()
                 Text(verbatim: title)
                     .bold()
-                Spacer()
             }
         })
     }
