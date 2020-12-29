@@ -62,12 +62,11 @@ public struct MoviewView: View {
             if let image = image, let title = title {
                 Image(uiImage: image)
                     .resizable()
-                    .frame(width: 250, height: 250, alignment: .center)
-                    .scaledToFit()
-                    .overlay(ImageOverlay(title: title), alignment: .bottomTrailing)
-                Spacer()
-
+                    .padding()
+                Text(verbatim: title)
+                    .bold()
             }
+
         })
     }
 }
