@@ -47,8 +47,7 @@ public struct ImageFetcherView<PlaceholderView: View>: View {
 
 @available(iOS 13.0, *)
 //MARK: - MoviewView
-/// A Simple View which shows a Image and a Title of the movie.
-
+/// A Simple View which shows a Image and a Title of the movie
 public struct MoviewView: View {
     public  let image: UIImage?
     public let title: String?
@@ -60,15 +59,13 @@ public struct MoviewView: View {
     
     public var body: some View {
         VStack(spacing: 10, content: {
-            GeometryReader { geo in
-                if let image = image, let title = title {
-                    Image(uiImage: image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: geo.size.width, height: 300)
-                    Text(verbatim: title)
-                        .bold()
-                }
+            if let image = image, let title = title {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(0.7, contentMode: .fit)
+                    .padding()
+                Text(verbatim: title)
+                    .bold()
             }
         })
     }
