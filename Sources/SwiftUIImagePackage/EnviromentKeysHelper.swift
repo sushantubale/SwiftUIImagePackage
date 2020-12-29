@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 
+//MARK: - ImageFetcherCacheKey
+/// This struct is used to set values in the Cache
 private struct ImageFetcherCacheKey: EnvironmentKey {
     static public let defaultValue: ImageFetcherCacheProtocol = ImageFetcherCache()
 }

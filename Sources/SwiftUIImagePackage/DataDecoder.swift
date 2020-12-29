@@ -8,10 +8,14 @@
 import Foundation
 import Combine
 
+//MARK: -  SessionError
+/// Session error 
 public enum SessionError: Error {
     case statusCode(HTTPURLResponse)
 }
 
+//MARK: - DataDecoder
+/// Decoder class which takes in any url and returns back the decoded data based on the Decodable model passed.
 @available(iOS 13.0, *)
 public class DataDecoder {
     public var url: URL?
@@ -20,6 +24,9 @@ public class DataDecoder {
         self.url = url
     }
     
+    
+    /// This function calls the API to fetch data from remote server
+    /// - Returns: Returns the decoded data done by using JSONDecoder().decode()
     public func dataTaskPublisher<T: Decodable>() -> AnyPublisher<T, Error> {
         
         return URLSession.shared.dataTaskPublisher(for: self.url!)
