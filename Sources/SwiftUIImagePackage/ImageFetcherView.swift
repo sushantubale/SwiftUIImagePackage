@@ -63,7 +63,6 @@ public struct MoviewView: View {
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .padding()
                 Text(verbatim: title)
                     .bold()
             }
