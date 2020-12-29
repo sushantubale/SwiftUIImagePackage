@@ -64,10 +64,40 @@ public struct MoviewView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .clipShape(Circle())
+                    .overlay(ImageOverlay(title: title), alignment: .bottomTrailing)
+                Spacer()
 
-                Text(verbatim: title)
-                    .bold()
             }
         })
     }
 }
+
+@available(iOS 13.0, *)
+struct ImageOverlay: View {
+    var title: String?
+    
+    init(title: String) {
+        self.title = title
+    }
+    
+    var body: some View {
+        ZStack {
+            if #available(iOS 14.0, *) {
+                Text(title ?? "")
+                    .font(.title2)
+                    .padding(6)
+                    .foregroundColor(.white)
+            } else {
+                Text(title ?? "")
+                    .font(.title)
+                    .padding(6)
+                    .foregroundColor(.white)
+                // Fallback on earlier versions
+            }
+        }.background(Color.black)
+        .opacity(0.8)
+        .cornerRadius(10.0)
+        .padding(6)
+    }
+}
+
