@@ -62,6 +62,7 @@ public struct MoviewView: View {
             if let image = image, let title = title {
                 Image(uiImage: image)
                     .resizable()
+                    .aspectRatio(contentMode: .fit)
                     .padding()
                 Text(verbatim: title)
                     .bold()
