@@ -61,9 +61,9 @@ public struct MoviewView: View {
         VStack(spacing: 10, content: {
             if let image = image, let title = title {
                 Image(uiImage: image)
-                    .resizable()
-                    .frame(width: 200, height: 200, alignment: .center)
-                    .clipShape(Circle())
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 300, height: 300)
+                    .border(Color.blue, width: 3.0)
                 Text(verbatim: title)
                     .bold()
                 Spacer()
