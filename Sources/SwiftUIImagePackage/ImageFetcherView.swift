@@ -62,9 +62,8 @@ public struct MoviewView: View {
             if let image = image, let title = title {
                 Image(uiImage: image)
                     .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .clipShape(Circle())
-                    .overlay(ImageOverlay(title: title), alignment: .bottomTrailing)
+                    .scaledToFit()
+                    .overlay(ImageOverlay(), alignment: .bottomTrailing)
                 Spacer()
 
             }
