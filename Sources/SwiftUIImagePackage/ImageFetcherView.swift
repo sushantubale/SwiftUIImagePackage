@@ -62,10 +62,12 @@ public struct MoviewView: View {
             if let image = image, let title = title {
                 Image(uiImage: image)
                     .resizable()
-                    .aspectRatio(CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width), contentMode: .fit)
-                    .contentShape(Circle())
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 250.0, height: 250.0, alignment: .center)
+                    .clipShape(Circle())
                 Text(verbatim: title)
                     .bold()
+                Spacer()
             }
         })
     }
