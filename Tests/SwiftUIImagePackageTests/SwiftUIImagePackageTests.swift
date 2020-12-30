@@ -6,7 +6,6 @@ final class SwiftUIImagePackageTests: XCTestCase {
     func testStartDownloading() {
         
         let imageFetcher = ImageFetcher(url: URL(string: "test_url")!)
-        imageFetcher.isLoadingImage = true
         imageFetcher.startDownloading()
         XCTAssertEqual(imageFetcher.isLoadingImage, true)
     }
@@ -14,7 +13,6 @@ final class SwiftUIImagePackageTests: XCTestCase {
     @available(iOS 13.0, *)
     func testFinishDownloading() {
         let imageFetcher = ImageFetcher(url: URL(string: "test_url")!)
-        imageFetcher.isLoadingImage = false
         imageFetcher.finishDownloading()
         XCTAssertEqual(imageFetcher.isLoadingImage, false)
 
