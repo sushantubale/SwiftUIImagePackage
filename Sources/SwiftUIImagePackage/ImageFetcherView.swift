@@ -58,14 +58,14 @@ public struct MoviewView: View {
     }
     
     public var body: some View {
-        HStack(spacing: 20, content: {
+        VStack(spacing: 20, content: {
             GeometryReader { geo in
                 if let image = image, let title = title {
                     Image(uiImage: image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: geo.size.width/2)
-                    Spacer()
+                        .padding()
                     NeumorphicView(title: title)
                 }
             }
