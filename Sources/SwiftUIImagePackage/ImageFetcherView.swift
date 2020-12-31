@@ -58,11 +58,13 @@ public struct MoviewView: View {
     }
     
     public var body: some View {
-        VStack(spacing: 10, content: {
+        VStack(spacing: 20, content: {
             if let image = image, let title = title {
                 Image(uiImage: image)
                     .aspectRatio(contentMode: .fit)
+                    .frame(width: 300, height: 300)
                     .padding()
+                Spacer()
                 NeumorphicView(title: title)
             }
 
