@@ -66,6 +66,9 @@ public struct MoviewView: View {
                        .scaledToFit()
                     .clipShape(RoundedRectangle(cornerRadius: 15.0, style: RoundedCornerStyle.circular))
                        .shadow(color: Color.blue.opacity(5.0), radius: 5, x: 5, y: 5)
+                    .transition(.iris)
+                    .zIndex(1)
+
                 
                 Text(verbatim: title)
                     .bold()
@@ -99,5 +102,51 @@ struct ImageOverlay: View {
         .opacity(0.8)
         .cornerRadius(10.0)
         .padding(6)
+    }
+}
+
+@available(iOS 13.0, *)
+
+extension Animation {
+    static func ripple() -> Animation {
+        Animation.spring(dampingFraction: 0.5)
+    }
+}
+
+@available(iOS 13.0, *)
+
+extension AnyTransition {
+    static var iris: AnyTransition {
+        .modifier(
+            active: ClipShapeModifier(shape: ScaledCircle(animatableData: 0)),
+            identity: ClipShapeModifier(shape: ScaledCircle(animatableData: 1))
+        )
+    }
+}
+@available(iOS 13.0, *)
+
+struct ClipShapeModifier<T: Shape>: ViewModifier {
+    let shape: T
+
+    func body(content: Content) -> some View {
+        content.clipShape(shape)
+    }
+}
+
+@available(iOS 13.0, *)
+
+struct ScaledCircle: Shape {
+    var animatableData: CGFloat
+
+    func path(in rect: CGRect) -> Path {
+        let maximumCircleRadius = sqrt(rect.width * rect.width + rect.height * rect.height)
+        let circleRadius = maximumCircleRadius * animatableData
+
+        let x = rect.midX - circleRadius / 2
+        let y = rect.midY - circleRadius / 2
+
+        let circleRect = CGRect(x: x, y: y, width: circleRadius, height: circleRadius)
+
+        return Circle().path(in: circleRect)
     }
 }
