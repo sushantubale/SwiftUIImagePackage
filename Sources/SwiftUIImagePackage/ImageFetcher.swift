@@ -29,6 +29,7 @@ class ImageFetcher: ObservableObject {
     }
     
     deinit {
+        self.cancellable?.cancel()
         cancel()
     }
     
@@ -44,13 +45,23 @@ class ImageFetcher: ObservableObject {
         cancellable = URLSession.shared.dataTaskPublisher(for: url)
             .map { UIImage(data: $0.data) }
             .replaceError(with: nil)
-            .handleEvents(receiveSubscription: { [weak self] _ in self?.startDownloading() },
-                          receiveOutput: { [weak self] in self?.cacheImage($0) },
-                          receiveCompletion: { [weak self] _ in self?.finishDownloading() },
-                          receiveCancel: { [weak self] in self?.finishDownloading() })
+            .handleEvents(receiveSubscription: { [weak self] _ in
+                            guard let strongSelf = self else { return }
+                            strongSelf.startDownloading() },
+                          receiveOutput: { [weak self] in
+                            guard let strongSelf = self else { return }
+                            strongSelf.cacheImage($0) },
+                          receiveCompletion: { [weak self] _ in
+                            guard let strongSelf = self else { return }
+                            strongSelf.finishDownloading() },
+                          receiveCancel: { [weak self] in
+                            guard let strongSelf = self else { return }
+                            strongSelf.finishDownloading() })
             .subscribe(on: Self.imageQueue)
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] in self?.image = $0 }
+            .sink { [weak self] in
+                guard let strongSelf = self else { return }
+                strongSelf.image = $0 }
     }
     
     /// cancel is used to cancel any task.
