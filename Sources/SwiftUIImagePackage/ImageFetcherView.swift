@@ -58,7 +58,7 @@ public struct MoviewView: View {
     }
     
     public var body: some View {
-        VStack(spacing: 10, content: {
+        VStack(content: {
             if let image = image, let title = title {
                 Image(uiImage: image)
                     .renderingMode(.original)
