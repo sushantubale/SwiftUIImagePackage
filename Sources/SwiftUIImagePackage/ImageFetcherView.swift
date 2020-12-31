@@ -1,6 +1,6 @@
 //
 //  ImageFetcherView.swift
-//  
+//
 //
 //  Created by Sushant Ubale on 12/27/20.
 //
@@ -58,64 +58,44 @@ public struct MoviewView: View {
     }
     
     public var body: some View {
-        VStack(spacing: 20, content: {
-            GeometryReader { geo in
-                if let image = image, let title = title {
-                    Image(uiImage: image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: geo.size.width/2)
-                        .padding()
-                    NeumorphicView(title: title)
-                }
+        VStack(spacing: 10, content: {
+            if let image = image, let title = title {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 120, height: 120)
+                    .clipShape(Circle())
+                Text(verbatim: title)
+                    .bold()
             }
         })
     }
 }
 
 @available(iOS 13.0, *)
-struct NeumorphicView: View {
+struct ImageOverlay: View {
     var title: String?
-    init(title: String?) {
+    
+    init(title: String) {
         self.title = title
     }
     
     var body: some View {
-        VStack {
-            if let title = title {
-                Button(title, action: {
-                }).padding(20)
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.neuBackground)
-                )
-                .shadow(color: .blue, radius: 15, x: 10, y: 10)
-                .shadow(color: .red, radius: 15, x: -10, y: -10)
-                .foregroundColor(.primary)
+        ZStack {
+            if #available(iOS 14.0, *) {
+                Text(title ?? "")
+                    .font(.callout)
+                    .padding(6)
+                    .foregroundColor(.white)
+            } else {
+                Text(title ?? "")
+                    .font(.callout)
+                    .padding(6)
+                    .foregroundColor(.white)
             }
-        }
-    }
-}
-
-@available(iOS 13.0, *)
-extension Color {
-    static let neuBackground = Color(hex: "f0f0f3")
-    static let dropShadow = Color(hex: "aeaec0").opacity(0.4)
-    static let dropLight = Color(hex: "ffffff")
-}
-
-@available(iOS 13.0, *)
-extension Color {
-    init(hex: String) {
-        let scanner = Scanner(string: hex)
-        scanner.scanLocation = 0
-        var rgbValue: UInt64 = 0
-        scanner.scanHexInt64(&rgbValue)
-
-        let r = (rgbValue & 0xff0000) >> 16
-        let g = (rgbValue & 0xff00) >> 8
-        let b = rgbValue & 0xff
-
-        self.init(red: Double(r) / 0xff, green: Double(g) / 0xff, blue: Double(b) / 0xff)
+        }.background(Color.black)
+        .opacity(0.8)
+        .cornerRadius(10.0)
+        .padding(6)
     }
 }
