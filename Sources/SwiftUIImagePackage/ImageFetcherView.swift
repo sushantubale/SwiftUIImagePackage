@@ -61,10 +61,12 @@ public struct MoviewView: View {
         VStack(spacing: 10, content: {
             if let image = image, let title = title {
                 Image(uiImage: image)
+                    .renderingMode(.original)
                     .resizable()
-                    .scaledToFit()
-                    .frame(width: 120, height: 120)
-                    .clipShape(Circle())
+                       .frame(minWidth: 60.0, idealWidth: 75.0, maxWidth: 95.0, minHeight: 80.0, idealHeight: 95.0, maxHeight: 110.0, alignment: .center)
+                       .scaledToFit()
+                       .clipShape(Capsule())
+                       .shadow(color: Color.black.opacity(5.0), radius: 5, x: 5, y: 5)
                 Text(verbatim: title)
                     .bold()
             }
