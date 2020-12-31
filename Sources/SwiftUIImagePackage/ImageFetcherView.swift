@@ -61,45 +61,14 @@ public struct MoviewView: View {
         VStack(spacing: 10, content: {
             if let image = image, let title = title {
                 Image(uiImage: image)
-                    .resizable()
+                    .aspectRatio(contentMode: .fit)
                     .padding()
                 NeumorphicView(title: title)
-//                Text(verbatim: title)
-//                    .bold()
             }
 
         })
     }
 }
-
-@available(iOS 13.0, *)
-struct ImageOverlay: View {
-    var title: String?
-    
-    init(title: String) {
-        self.title = title
-    }
-    
-    var body: some View {
-        ZStack {
-            if #available(iOS 14.0, *) {
-                Text(title ?? "")
-                    .font(.callout)
-                    .padding(6)
-                    .foregroundColor(.white)
-            } else {
-                Text(title ?? "")
-                    .font(.callout)
-                    .padding(6)
-                    .foregroundColor(.white)
-            }
-        }.background(Color.black)
-        .opacity(0.8)
-        .cornerRadius(10.0)
-        .padding(6)
-    }
-}
-
 
 @available(iOS 13.0, *)
 struct NeumorphicView: View {
@@ -117,16 +86,13 @@ struct NeumorphicView: View {
                         RoundedRectangle(cornerRadius: 10)
                             .fill(Color.neuBackground)
                 )
-                .shadow(color: .dropShadow, radius: 15, x: 10, y: 10)
-                .shadow(color: .dropLight, radius: 15, x: -10, y: -10)
+                .shadow(color: .blue, radius: 15, x: 10, y: 10)
+                .shadow(color: .red, radius: 15, x: -10, y: -10)
                 .foregroundColor(.primary)
-
             }
         }
     }
 }
-
-
 
 @available(iOS 13.0, *)
 extension Color {
