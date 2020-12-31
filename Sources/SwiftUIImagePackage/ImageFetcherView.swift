@@ -63,8 +63,9 @@ public struct MoviewView: View {
                 Image(uiImage: image)
                     .resizable()
                     .padding()
-                Text(verbatim: title)
-                    .bold()
+                NeumorphicView(title: title)
+//                Text(verbatim: title)
+//                    .bold()
             }
 
         })
@@ -99,3 +100,53 @@ struct ImageOverlay: View {
     }
 }
 
+
+@available(iOS 13.0, *)
+struct NeumorphicView: View {
+    var title: String?
+    init(title: String?) {
+        self.title = title
+    }
+    
+    var body: some View {
+        VStack {
+            if let title = title {
+                Button(title, action: {
+                }).padding(20)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.neuBackground)
+                )
+                .shadow(color: .dropShadow, radius: 15, x: 10, y: 10)
+                .shadow(color: .dropLight, radius: 15, x: -10, y: -10)
+                .foregroundColor(.primary)
+
+            }
+        }
+    }
+}
+
+
+
+@available(iOS 13.0, *)
+extension Color {
+    static let neuBackground = Color(hex: "f0f0f3")
+    static let dropShadow = Color(hex: "aeaec0").opacity(0.4)
+    static let dropLight = Color(hex: "ffffff")
+}
+
+@available(iOS 13.0, *)
+extension Color {
+    init(hex: String) {
+        let scanner = Scanner(string: hex)
+        scanner.scanLocation = 0
+        var rgbValue: UInt64 = 0
+        scanner.scanHexInt64(&rgbValue)
+
+        let r = (rgbValue & 0xff0000) >> 16
+        let g = (rgbValue & 0xff00) >> 8
+        let b = rgbValue & 0xff
+
+        self.init(red: Double(r) / 0xff, green: Double(g) / 0xff, blue: Double(b) / 0xff)
+    }
+}
