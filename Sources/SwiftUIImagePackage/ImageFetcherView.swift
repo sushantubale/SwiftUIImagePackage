@@ -85,7 +85,7 @@ struct ImageOverlay: View {
         ZStack {
             if #available(iOS 14.0, *) {
                 Text(title ?? "")
-                    .font(.callout)
+                    .bold()
                     .padding(6)
                     .foregroundColor(.white)
             } else {
