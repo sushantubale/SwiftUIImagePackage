@@ -67,8 +67,7 @@ public struct MoviewView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 15.0, style: RoundedCornerStyle.circular))
                        .shadow(color: Color.blue.opacity(5.0), radius: 5, x: 5, y: 5)
                 
-                Text(verbatim: title)
-                    .bold()
+                    .overlay(ImageOverlay(title: title), alignment: .bottomTrailing)
             }
         })
     }
