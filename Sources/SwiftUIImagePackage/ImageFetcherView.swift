@@ -64,7 +64,7 @@ public struct MoviewView: View {
                     .renderingMode(.original)
                     .resizable()
                        .scaledToFit()
-                       .clipShape(Rectangle())
+                    .clipShape(RoundedRectangle(cornerRadius: 1.0, style: RoundedCornerStyle.continuous))
                        .shadow(color: Color.blue.opacity(5.0), radius: 5, x: 5, y: 5)
                 Text(verbatim: title)
                     .bold()
