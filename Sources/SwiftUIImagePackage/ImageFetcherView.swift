@@ -63,10 +63,9 @@ public struct MoviewView: View {
                 Image(uiImage: image)
                     .renderingMode(.original)
                     .resizable()
-                       .frame(minWidth: 60.0, idealWidth: 75.0, maxWidth: 95.0, minHeight: 80.0, idealHeight: 95.0, maxHeight: 110.0, alignment: .center)
                        .scaledToFit()
-                       .clipShape(Capsule())
-                       .shadow(color: Color.black.opacity(5.0), radius: 5, x: 5, y: 5)
+                       .clipShape(Circle())
+                       .shadow(color: Color.blue.opacity(5.0), radius: 5, x: 5, y: 5)
                 Text(verbatim: title)
                     .bold()
             }
