@@ -60,14 +60,28 @@ public struct MoviewView: View {
     public var body: some View {
         VStack(spacing: 10, content: {
             if let image = image, let title = title {
+
                 Image(uiImage: image)
                     .renderingMode(.original)
                     .resizable()
                        .scaledToFit()
                        .clipShape(Rectangle())
                        .shadow(color: Color.blue.opacity(5.0), radius: 5, x: 5, y: 5)
-                Text(verbatim: title)
-                    .bold()
+                
+                ZStack {
+                    Text(verbatim: title)
+                        .bold()
+
+                    Rectangle()
+                        .fill(Color("Background"))
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .edgesIgnoringSafeArea(.all)
+                    RoundedRectangle(cornerRadius: 20, style: .continuous)
+                        .fill(Color("Background"))
+                        .frame(width: 300, height: 60)
+                        .shadow(color: Color.blue, radius: 2, x: -2, y: -2)
+                        .shadow(color: Color.red, radius: 8, x: 8, y: 8)
+                }
             }
         })
     }
