@@ -68,20 +68,19 @@ public struct MoviewView: View {
                        .clipShape(Rectangle())
                        .shadow(color: Color.blue.opacity(5.0), radius: 5, x: 5, y: 5)
                 
-                ZStack {
-                    Text(verbatim: title)
-                        .bold()
+                Text(verbatim: title)
+                    .bold()
 
-                    Rectangle()
-                        .fill(Color("Background"))
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .edgesIgnoringSafeArea(.all)
-                    RoundedRectangle(cornerRadius: 20, style: .continuous)
-                        .fill(Color("Background"))
-                        .frame(width: 300, height: 60)
-                        .shadow(color: Color.blue, radius: 2, x: -2, y: -2)
-                        .shadow(color: Color.red, radius: 8, x: 8, y: 8)
-                }
+                Rectangle()
+                    .fill(Color("Background"))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .edgesIgnoringSafeArea(.all)
+                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                    .fill(Color("Background"))
+                    .frame(width: 300, height: 60)
+                    .shadow(color: Color.blue, radius: 2, x: -2, y: -2)
+                    .shadow(color: Color.red, radius: 8, x: 8, y: 8)
+
             }
         })
     }
