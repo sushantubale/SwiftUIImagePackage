@@ -59,13 +59,16 @@ public struct MoviewView: View {
     
     public var body: some View {
         VStack(spacing: 20, content: {
-            if let image = image, let title = title {
-                Image(uiImage: image)
-                    .padding()
-                Spacer()
-                NeumorphicView(title: title)
+            GeometryReader { geo in
+                if let image = image, let title = title {
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: geo.size.width/2)
+                    Spacer()
+                    NeumorphicView(title: title)
+                }
             }
-
         })
     }
 }
